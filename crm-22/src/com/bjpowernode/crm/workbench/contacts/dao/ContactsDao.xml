@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.workbench.contacts.dao.ContactsDao">
+	<insert id="saveCreateContacts" parameterType="Contacts">
+		insert into tbl_contacts(id,owner,source,appellation,fullName,email,job,mphone,description,country,province,city,street,zipcode,birth,customerId,createBy,createTime,contactSummary)
+		values
+		(#{id},#{owner},#{source},#{appellation},#{fullName},#{email},#{job},#{mphone},#{description},#{country},#{province},#{city},#{street},#{zipcode},#{birth},#{customerId},#{createBy},#{createTime},#{contactSummary})
+	</insert>
+	<select id="queryContactsByFullNameMphone" resultType="Contacts">
+		select * from tbl_contacts where fullName=#{fullName} and mphone=#{mphone}
+	</select>
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.workbench.activity.dao.MarketActivityDao">
+	<insert id="saveCreateMarketActivity" parameterType="MarketActivity">
+		insert into tbl_marketing_activities(id,owner,type,name,state,startDate,endDate,budgetCost,actualCost,description,createBy,createTime)
+		values
+		(#{id},#{owner},#{type},#{name},#{state},#{startDate},#{endDate},#{budgetCost},#{actualCost},#{description},#{createBy},#{createTime})
+	</insert>
+	<select id="queryMarketActivityForPageByCondition" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u1.name as owner,ma.budgetCost,ma.actualCost,
+			u2.name as createBy,ma.createTime,u3.name as editBy,ma.editTime,ma.description
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u1 on ma.owner=u1.id
+		join tbl_user u2 on ma.createBy=u2.id
+		left join tbl_user u3 on ma.editBy=u3.id
+		<where>
+			<if test="name!=null and name!=''">
+				and ma.name like '%' #{name} '%'
+			</if>
+			<if test="owner!=null and owner!=''">
+				and u1.name like '%' #{owner} '%'
+			</if>
+			<if test="type!=null and type!=''">
+				and ma.type=#{type}
+			</if>
+			<if test="state!=null and state!=''">
+				and ma.state=#{state}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				and ma.startDate&gt;=#{startDate}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and ma.endDate&lt;=#{endDate}
+			</if>
+		</where>
+		order by ma.createTime desc
+		limit #{beginNo},#{pageSize}
+	</select>
+	<select id="queryCountOfMarketActivityByCondition" resultType="long">
+		select count(*)
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u1 on ma.owner=u1.id
+		join tbl_user u2 on ma.createBy=u2.id
+		left join tbl_user u3 on ma.editBy=u3.id
+		<where>
+			<if test="name!=null and name!=''">
+				and ma.name like '%' #{name} '%'
+			</if>
+			<if test="owner!=null and owner!=''">
+				and u1.name like '%' #{owner} '%'
+			</if>
+			<if test="type!=null and type!=''">
+				and ma.type=#{type}
+			</if>
+			<if test="state!=null and state!=''">
+				and ma.state=#{state}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				and ma.startDate&gt;=#{startDate}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and ma.endDate&lt;=#{endDate}
+			</if>
+		</where>
+	</select>
+	<delete id="deleteMarketActivityByIds">
+		delete from tbl_marketing_activities where id in
+		<foreach collection="array" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="queryMarketActivityById" resultType="MarketActivity">
+		select *
+		from tbl_marketing_activities
+		where id=#{id}
+	</select>
+	<update id="saveEditMarketActivity" parameterType="MarketActivity">
+		update tbl_marketing_activities set owner=#{owner},type=#{type},name=#{name},state=#{state},startDate=#{startDate},
+			endDate=#{endDate},budgetCost=#{budgetCost},actualCost=#{actualCost},editBy=#{editBy},editTime=#{editTime},description=#{description}
+	    where id=#{id}
+	</update>
+	<select id="queryMarketActivityForDetailById" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u1.name as owner,ma.budgetCost,ma.actualCost,
+			u2.name as createBy,ma.createTime,u3.name as editBy,ma.editTime,ma.description
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u1 on ma.owner=u1.id
+		join tbl_user u2 on ma.createBy=u2.id
+		left join tbl_user u3 on ma.editBy=u3.id
+		where ma.id=#{id}
+	</select>
+	<select id="queryMarketActivityByCondition" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u1.name as owner,ma.budgetCost,ma.actualCost,
+			u2.name as createBy,ma.createTime,u3.name as editBy,ma.editTime,ma.description
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u1 on ma.owner=u1.id
+		join tbl_user u2 on ma.createBy=u2.id
+		left join tbl_user u3 on ma.editBy=u3.id
+		<where>
+			<if test="name!=null and name!=''">
+				and ma.name like '%' #{name} '%'
+			</if>
+			<if test="owner!=null and owner!=''">
+				and u1.name like '%' #{owner} '%'
+			</if>
+			<if test="type!=null and type!=''">
+				and ma.type=#{type}
+			</if>
+			<if test="state!=null and state!=''">
+				and ma.state=#{state}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				and ma.startDate&gt;=#{startDate}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and ma.endDate&lt;=#{endDate}
+			</if>
+		</where>
+		order by ma.createTime desc
+	</select>
+	<insert id="saveCreateMarketActivityByList">
+		insert into tbl_marketing_activities(id,owner,type,name,state,startDate,endDate,budgetCost,actualCost,description,createBy,createTime)
+		values
+		<foreach collection="list" item="obj" separator=",">
+			(#{obj.id},#{obj.owner},#{obj.type},#{obj.name},#{obj.state},#{obj.startDate},#{obj.endDate},#{obj.budgetCost},#{obj.actualCost},#{obj.description},#{obj.createBy},#{obj.createTime})
+		</foreach>
+	</insert>
+	<select id="queryMarketActivityByClueId" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u.name as owner
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u on ma.owner=u.id
+		join tbl_clue_activity_relation car on ma.id=car.activityId
+		where car.clueId=#{clueId}
+	</select>
+	<select id="queryMarketActivityByNameClueId_bak" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u.name as owner
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u on ma.owner=u.id
+		where ma.name like '%' #{name} '%' and ma.id not in(
+			select car.activityId from tbl_clue_activity_relation car where car.clueId=#{clueId}
+		)
+	</select>
+	<select id="queryMarketActivityByNameClueId" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u.name as owner
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u on ma.owner=u.id
+		where ma.name like '%' #{name} '%' and not exists(
+			select 1
+			from tbl_clue_activity_relation car
+			where car.clueId=#{clueId} and car.activityId=ma.id
+		)
+		<!-- 
+			1,not exists:如果子查询能查出结果,不管结果是什么,也不管有多少条,not exists把子查询当做true,整个not exists就是false;否则,子查询不能查出结果,则not exists把子查询当做false,整个not exists就是true.
+			2,子查询 应该关联主查询,要把主查询中某些记录(被排除的记录)在子查询中能够查询出结果.
+			3,子查询应该查那些已经关联过的市场活动,并且关联主查询.
+		 -->
+	</select>
+	<select id="queryMarketActivityByIds" resultType="MarketActivity">
+		select ma.id,ma.name,dv1.text as type,dv2.text as state,ma.startDate,ma.endDate,u.name as owner
+		from tbl_marketing_activities ma
+		left join tbl_dictionary_value dv1 on ma.type=dv1.id
+		left join tbl_dictionary_value dv2 on ma.state=dv2.id
+		join tbl_user u on ma.owner=u.id
+		where ma.id in 
+		<foreach collection="array" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
+	</select>
+</mapper>

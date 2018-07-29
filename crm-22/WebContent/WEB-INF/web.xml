@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>crm-00</display-name>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryMarketActivityTypeContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryMarketActivityStateContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryAppellationContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryClueStateContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QuerySourceContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryIndustryContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryGradeContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryStageContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.QueryTransactionTypeContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>com.bjpowernode.crm.commons.web.listener.InitPossibilityContextListener</listener-class>
+  </listener>
+  <filter>
+  	<filter-name>loginFilter</filter-name>
+  	<filter-class>com.bjpowernode.crm.settings.qx.user.web.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>loginFilter</filter-name>
+  	<url-pattern>/settings/*</url-pattern>
+  	<url-pattern>/workbench/*</url-pattern>
+  </filter-mapping>
+  <!-- 用户登录 -->
+  <servlet>
+  	<servlet-name>loginController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.settings.qx.user.web.controller.LoginController</servlet-class>
+  	<init-param>
+  		<param-name>driver</param-name>
+  		<param-value>com.mysql.jdbc.Driver</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>loginController</servlet-name>
+  	<url-pattern>/settings/qx/user/login.do</url-pattern>
+  </servlet-mapping>
+  <!-- 安全退出 -->
+  <servlet>
+  	<servlet-name>logoutController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.settings.qx.user.web.controller.LogoutController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>logoutController</servlet-name>
+  	<url-pattern>/settings/qx/user/logout.do</url-pattern>
+  </servlet-mapping>
+  <!-- 创建市场活动 -->
+  <servlet>
+  	<servlet-name>createMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.CreateMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>createMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/createMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存创建的市场活动 -->
+  <servlet>
+  	<servlet-name>saveCreateMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.SaveCreateMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveCreateMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/saveCreateMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 查询市场活动 -->
+  <servlet>
+  	<servlet-name>queryMarketActivityForPageByConditionController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.QueryMarketActivityForPageByConditionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>queryMarketActivityForPageByConditionController</servlet-name>
+  	<url-pattern>/workbench/activity/queryMarketActivityForPageByCondition.do</url-pattern>
+  </servlet-mapping>
+  <!-- 删除市场活动 -->
+  <servlet>
+  	<servlet-name>deleteMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.DeleteMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>deleteMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/deleteMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 修改市场活动 -->
+  <servlet>
+  	<servlet-name>editMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.EditMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>editMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/editMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存修改的市场活动 -->
+  <servlet>
+  	<servlet-name>saveEditMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.SaveEditMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveEditMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/saveEditMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 查看市场活动明细 -->
+  <servlet>
+  	<servlet-name>detailMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.DetailMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>detailMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/detailMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 添加市场活动备注 -->
+  <servlet>
+  	<servlet-name>saveCreateMarketActivityRemarkController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.SaveCreateMarketActivityRemarkController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveCreateMarketActivityRemarkController</servlet-name>
+  	<url-pattern>/workbench/activity/saveCreateMarketActivityRemark.do</url-pattern>
+  </servlet-mapping>
+  <!-- 删除市场活动备注 -->
+  <servlet>
+  	<servlet-name>deleteMarketActivityRemarkController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.DeleteMarketActivityRemarkController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>deleteMarketActivityRemarkController</servlet-name>
+  	<url-pattern>/workbench/activity/deleteMarketActivityRemark.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存修改的市场活动备注 -->
+  <servlet>
+  	<servlet-name>saveEditMarketActivityRemarkController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.SaveEditMarketActivityRemarkController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveEditMarketActivityRemarkController</servlet-name>
+  	<url-pattern>/workbench/activity/saveEditMarketActivityRemark.do</url-pattern>
+  </servlet-mapping>
+  <!-- 导出市场活动 -->
+  <servlet>
+  	<servlet-name>exportMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.ExportMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>exportMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/exportMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 导入市场活动 -->
+  <servlet>
+  	<servlet-name>importMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.activity.web.controller.ImportMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>importMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/activity/importMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 创建线索 -->
+  <servlet>
+  	<servlet-name>createClueController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.CreateClueController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>createClueController</servlet-name>
+  	<url-pattern>/workbench/clue/createClue.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存创建的线索 -->
+  <servlet>
+  	<servlet-name>saveCreateClueController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.SaveCreateClueController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveCreateClueController</servlet-name>
+  	<url-pattern>/workbench/clue/saveCreateClue.do</url-pattern>
+  </servlet-mapping>
+  <!-- 查看线索明细 -->
+  <servlet>
+  	<servlet-name>detailClueController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.DetailClueController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>detailClueController</servlet-name>
+  	<url-pattern>/workbench/clue/detailClue.do</url-pattern>
+  </servlet-mapping>
+  <!-- 根据名称模糊查询市场活动 -->
+  <servlet>
+  	<servlet-name>queryMarketActivityByNameClueIdController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.QueryMarketActivityByNameClueIdController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>queryMarketActivityByNameClueIdController</servlet-name>
+  	<url-pattern>/workbench/clue/queryMarketActivityByNameClueId.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存线索关联市场活动 -->
+  <servlet>
+  	<servlet-name>saveBundMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.SaveBundMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveBundMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/clue/saveBundMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 解除线索关联市场活动 -->
+  <servlet>
+  	<servlet-name>saveUnbundMarketActivityController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.SaveUnbundMarketActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveUnbundMarketActivityController</servlet-name>
+  	<url-pattern>/workbench/clue/saveUnbundMarketActivity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存线索转换 -->
+  <servlet>
+  	<servlet-name>saveConvertClueController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.clue.web.controller.SaveConvertClueController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveConvertClueController</servlet-name>
+  	<url-pattern>/workbench/clue/saveConvertClue.do</url-pattern>
+  </servlet-mapping>
+  <!-- 创建交易 -->
+  <servlet>
+  	<servlet-name>createTransactionController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.transaction.web.controller.CreateTransactionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>createTransactionController</servlet-name>
+  	<url-pattern>/workbench/transaction/createTransaction.do</url-pattern>
+  </servlet-mapping>
+  <!-- 根据阶段获取可能性 -->
+  <servlet>
+  	<servlet-name>getPossibilityByStageController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.transaction.web.controller.GetPossibilityByStageController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>getPossibilityByStageController</servlet-name>
+  	<url-pattern>/workbench/transaction/getPossibilityByStage.do</url-pattern>
+  </servlet-mapping>
+  <!-- 根据名称模糊查询客户 -->
+  <servlet>
+  	<servlet-name>queryCustomerForTranByNameController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.transaction.web.controller.QueryCustomerForTranByNameController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>queryCustomerForTranByNameController</servlet-name>
+  	<url-pattern>/workbench/transaction/queryCustomerForTranByName.do</url-pattern>
+  </servlet-mapping>
+  <!-- 保存创建的交易 -->
+  <servlet>
+  	<servlet-name>saveCreateTransactionController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.transaction.web.controller.SaveCreateTransactionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>saveCreateTransactionController</servlet-name>
+  	<url-pattern>/workbench/transaction/saveCreateTransaction.do</url-pattern>
+  </servlet-mapping>
+  <!-- 查看交易明细 -->
+  <servlet>
+  	<servlet-name>detailTransactionController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.transaction.web.controller.DetailTransactionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>detailTransactionController</servlet-name>
+  	<url-pattern>/workbench/transaction/detailTransaction.do</url-pattern>
+  </servlet-mapping>
+  <!-- 查询交易表中各个阶段数据量 -->
+  <servlet>
+  	<servlet-name>queryTransactionGroupByStageController</servlet-name>
+  	<servlet-class>com.bjpowernode.crm.workbench.transaction.web.controller.QueryTransactionGroupByStageController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>queryTransactionGroupByStageController</servlet-name>
+  	<url-pattern>/workbench/transaction/queryTransactionGroupByStage.do</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.workbench.transaction.dao.TransactionDao">
+	<insert id="saveCreateTransaction" parameterType="Transaction">
+		insert into tbl_transaction(id,owner,amountOfMoney,name,expectedClosingDate,customerId,stage,type,source,activityId,contactsId,description,createBy,createTime,contactSummary,nextContactTime)
+		values
+		(#{id},#{owner},#{amountOfMoney},#{name},#{expectedClosingDate},#{customerId},#{stage},#{type},#{source},#{activityId},#{contactsId},#{description},#{createBy},#{createTime},#{contactSummary},#{nextContactTime})
+	</insert>
+	<select id="queryTransactionForDetailById" resultType="Transaction">
+		select t.id,u1.name as owner,t.amountOfMoney,t.name,t.expectedClosingDate,c.name as customerId,dv1.text as stage,dv1.orderNo,dv2.text as type,
+			dv3.text as source,ma.name as activityId,co.fullName as contactsId,t.description,u2.name as createBy,t.createTime,u3.name as editBy,
+			t.editTime,t.contactSummary,t.nextContactTime
+		from tbl_transaction t
+		join tbl_user u1 on t.owner=u1.id
+		join tbl_customer c on t.customerId=c.id
+		join tbl_dictionary_value dv1 on t.stage=dv1.id
+		left join tbl_dictionary_value dv2 on t.type=dv2.id
+		left join tbl_dictionary_value dv3 on t.source=dv3.id
+		left join tbl_marketing_activities ma on t.activityId=ma.id
+		left join tbl_contacts co on t.contactsId=co.id
+		join tbl_user u2 on t.createBy=u2.id
+		left join tbl_user u3 on t.editBy=u3.id
+		where t.id=#{id}
+	</select>
+	<select id="queryTransactionGroupByStage" resultType="FunnelVO">
+		select count(*) as value,dv.text as name
+		from tbl_transaction t
+		join tbl_dictionary_value dv on t.stage=dv.id
+		group by dv.text
+	</select>
+</mapper>

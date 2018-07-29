@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.crm.workbench.transaction.dao.TransactionHistoryDao">
+	<insert id="saveCreateTransactionHistory" parameterType="TransactionHistory">
+		insert into tbl_transaction_history(id,stage,amountOfMoney,expectedClosingDate,editTime,editBy,transactionId)
+		values
+		(#{id},#{stage},#{amountOfMoney},#{expectedClosingDate},#{editTime},#{editBy},#{transactionId})
+	</insert>
+	<select id="queryTransactionHistoryByTranId" resultType="TransactionHistory">
+		select dv.text as stage,dv.orderNo,th.amountOfMoney,th.expectedClosingDate,th.editTime,u.name as editBy
+		from tbl_transaction_history th
+		join tbl_dictionary_value dv on th.stage=dv.id
+		join tbl_user u on th.editBy=u.id
+		where th.transactionId=#{transactionId}
+		order by th.editTime
+	</select>
+</mapper>
